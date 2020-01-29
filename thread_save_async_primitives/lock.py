@@ -18,13 +18,13 @@ class AsyncLock:
             self.lock = threading.Lock()
 
     async def acquire(self, *args):
-        await self._loop.run_in_executor(None, self.lock.acquire, *args)
+        return await self._loop.run_in_executor(None, self.lock.acquire, *args)
 
     async def release(self):
-        await self._loop.run_in_executor(None, self.lock.release)
+        return await self._loop.run_in_executor(None, self.lock.release)
 
     async def locked(self):
-        await self._loop.run_in_executor(None, self.lock.locked)
+        return await self._loop.run_in_executor(None, self.lock.locked)
 
     async def __aenter__(self):
         await self.acquire()
